@@ -89,7 +89,7 @@
     type: SyntaxError
     value: "Bad minute"
 
-- description: \*\* is simply an overlapping range
+- description: \*,\* is simply an overlapping range
   cronline: "0 0 1 1 *,* echo hello"
   expected:
     minute: [0]
