@@ -90,7 +90,7 @@ def parse(cron_line):
         field_items = field_string.split(',')
 
         schedule = set()
-        # ranges with split, ranges, and ints are the only options left
+        # ranges with step, ranges, and ints are the only valid options left
         for item in field_items:
             m = re.match(RANGE_WITH_STEP_RE, item)
             if m:
