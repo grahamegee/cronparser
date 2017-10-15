@@ -1,15 +1,15 @@
 - description: given example
-  input: "*/15 0 1,15 * 1-5 /usr/bin/find"
+  cronline: "*/15 0 1,15 * 1-5 /usr/bin/find"
   expected:
     minute: [0, 15, 30, 45]
-    hour: 0
+    hour: [0]
     day of month: [1, 15]
     month: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     day of week: [1, 2, 3, 4, 5]
     command: "/usr/bin/find"
 
 - description: \* means full range
-  input: "0 0 1 1 * echo hello"
+  cronline: "0 0 1 1 * echo hello"
   expected:
     minute: [0]
     hour: [0]
@@ -19,7 +19,7 @@
     command: "echo hello"
 
 - description: numerical ranges are inclusive
-  input: "1-5 0 1 1 0 echo hello"
+  cronline: "1-5 0 1 1 0 echo hello"
   expected:
     minute: [1, 2, 3, 4, 5]
     hour: [0]
@@ -29,7 +29,7 @@
     command: "echo hello"
 
 - description: "stepping through ranges are inclusive"
-  input: "1-5/2 0 1 1 0 echo hello"
+  cronline: "1-5/2 0 1 1 0 echo hello"
   expected:
     minute: [1, 3, 5]
     hour: [0]
@@ -39,7 +39,7 @@
     command: "echo hello"
 
 - description: overlapping ranges are valid
-  input: "1-5,2-6 0 1 1 0 echo hello"
+  cronline: "1-5,2-6 0 1 1 0 echo hello"
   expected:
     minute: [1, 2, 3, 4, 5, 6]
     hour: [0]
@@ -49,7 +49,7 @@
     command: "echo hello"
 
 - description: prefix ranges are allowed
-  input: "0 0 jan-mar 1 mon-fri echo hello"
+  cronline: "0 0 1 jan-mar mon-fri echo hello"
   expected:
     minute: [0]
     hour: [0]
@@ -59,21 +59,21 @@
     command: "echo hello"
 
 - description: wrap-around ranges are errors
-  input: "3-1 0 1 1 0 echo hello"
+  cronline: "3-1 0 1 1 0 echo hello"
   error: true
   expected:
-    class: Error
-    description: "Bad minute"
+    type: SyntaxError
+    value: "Bad minute"
 
 - description: sun == 0 therefore fri-sun is invalid
-  input: 0 0 1 1 fri-sun echo hello"
+  cronline: 0 0 1 1 fri-sun echo hello"
   error: true
   expected:
-    class: Error
-    description: "Bad day of week"
+    type: SyntaxError
+    value: "Bad day of week"
 
 - description: prefix lists are allowed
-  input: "0 0 1 1 mon,fri echo hello"
+  cronline: "0 0 1 1 mon,fri echo hello"
   expected:
     minute: [0]
     hour: [0]
@@ -83,23 +83,24 @@
     command: "echo hello"
 
 - description: lines starting with '#' are ignored
-  input: "# 0 0 1 1 0 echo hello"
+  cronline: "# 0 0 1 1 0 echo hello"
+  error: true
   expected:
-    class: Error
-    description: "lines starting with a # are comments"
+    type: SyntaxError
+    value: "lines starting with a # are comments"
 
 - description: \*\* is simply an overlapping range
-  input: "0 0 1 1 ** echo hello"
+  cronline: "0 0 1 1 *,* echo hello"
   expected:
     minute: [0]
     hour: [0]
     day of month: [1]
     month: [1]
-    day of week: [0, 1, 2, 3, 4, 5, 6]
+    day of week: [0, 1, 2, 3, 4, 5, 6, 7]
     command: "echo hello"
 
 - description: sunday can be represented by 7
-  input: "0 0 1 1 1-7 echo hello"
+  cronline: "0 0 1 1 1-7 echo hello"
   expected:
     minute: [0]
     hour: [0]
@@ -109,71 +110,71 @@
     command: "echo hello"
 
 - description: below min minute
-  input: "-1 0 1 1 0 echo hello"
+  cronline: "-1 0 1 1 0 echo hello"
   error: true
   expected:
-    class: Error
-    description: "Bad  minute"
+    type: SyntaxError
+    value: "Bad minute"
 
 - description: above max minute
-  input: "60 0 1 1 0 echo hello"
+  cronline: "60 0 1 1 0 echo hello"
   error: true
   expected:
-    class: Error
-    description: "Bad minute"
+    type: SyntaxError
+    value: "Bad minute"
   
 - description: below min hour
-  input: "0 -1 1 1 0 echo hello"
+  cronline: "0 -1 1 1 0 echo hello"
   error: true
   expected:
-    class: Error
-    description: "Bad hour"
+    type: SyntaxError
+    value: "Bad hour"
 
 - description: above max hour
-  input: "0 24 1 1 0 echo hello"
+  cronline: "0 24 1 1 0 echo hello"
   error: true
   expected:
-    class: Error
-    description: "Bad hour"
+    type: SyntaxError
+    value: "Bad hour"
 
 - description: below min day of month
-  input: "0 0 0 1 0 echo hello"
+  cronline: "0 0 0 1 0 echo hello"
   error: true
   expected:
-    class: Error
-    description: "Bad day of month"
+    type: SyntaxError
+    value: "Bad day of month"
 
 - description: above max day of month
-  input: "0 0 32 1 0 echo hello"
+  cronline: "0 0 32 1 0 echo hello"
   error: true
   expected:
-    class: Error
-    description: "Bad day of month"
+    type: SyntaxError
+    value: "Bad day of month"
 
 - description: below min month
-  input: "0 0 1 0 0 echo hello"
+  cronline: "0 0 1 0 0 echo hello"
   error: true
   expected:
-    class: Error
-    description: "Bad month"
+    type: SyntaxError
+    value: "Bad month"
 
 - description: above max month
-  input: "0 0 1 13 0 echo hello"
+  cronline: "0 0 1 13 0 echo hello"
   error: true
   expected:
-    class: Error
-    description: "Bad month"
+    type: SyntaxError
+    value: "Bad month"
 
 - description: below min day of week
-  input: "0 0 1 1 -1 echo hello"
+  cronline: "0 0 1 1 -1 echo hello"
   error: true
   expected:
-    class: Error
-    description: "Bad day of week"
+    type: SyntaxError
+    value: "Bad day of week"
 
 - description: above max day of week
-  input: "0 0 1 1 8 echo hello"
+  cronline: "0 0 1 1 8 echo hello"
   error: true
   expected:
-    class: Error
-    description: "Bad day of week"
+    type: SyntaxError
+    value: "Bad day of week"
