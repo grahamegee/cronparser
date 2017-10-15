@@ -74,7 +74,6 @@ def _replace_prefixes_with_ints(field_id, string):
 
 def _create_subschedule(field_id, start, end, step):
     min_val, max_val = RANGES[field_id]
-    print(field_id, min_val, max_val)
     if start < min_val or end > max_val or start > end:
         raise SyntaxError('Bad {}'.format(ID_TO_NAME[field_id]))
     return {i for i in range(start, end + 1, step)}
@@ -113,8 +112,8 @@ def parse(cron_line):
                 continue
 
             raise SyntaxError('Bad {}'.format(ID_TO_NAME[field_id]))
+
         full_schedule[ID_TO_NAME[field_id]] = sorted(list(schedule))
-        # print(ID_TO_NAME[field_id], sorted(list(schedule)))
     return full_schedule
 
 
