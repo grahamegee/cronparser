@@ -9,6 +9,6 @@ setup(
     url='https://github.com/grahamegee/cronparser',
     install_requires=[],
     extras_require={
-            'test': ['coverage', 'pytest', 'pyyaml'],
+            'test': ['pytest-cov', 'pytest', 'pyyaml'],
     }
 )
