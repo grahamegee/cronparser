@@ -87,7 +87,7 @@
   error: true
   expected:
     type: SyntaxError
-    value: "lines starting with a # are comments"
+    value: "Bad minute"
 
 - description: \*\* is simply an overlapping range
   cronline: "0 0 1 1 *,* echo hello"
