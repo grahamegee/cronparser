@@ -81,6 +81,16 @@
     month: [1]
     day of week: [1, 5]
     command: "echo hello"
+  
+- description: case doesn't matter for prefixes
+  cronline: "0 0 1 1 mON,FRi echo hello"
+  expected:
+    minute: [0]
+    hour: [0]
+    day of month: [1]
+    month: [1]
+    day of week: [1, 5]
+    command: "echo hello"
 
 - description: lines starting with '#' are ignored
   cronline: "# 0 0 1 1 0 echo hello"
