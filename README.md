@@ -25,4 +25,4 @@ pip install -e cronparser['test']
 python -m cronparser.parse <"crontab line">
 ```
 
-Remember to incluse the crontab line in single or double quotes.
+Remember to enclose the crontab line in single or double quotes to ensure that it is interpreted as a single arg.
