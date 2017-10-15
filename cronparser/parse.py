@@ -53,7 +53,7 @@ DAY_TO_INT = {
 
 def _expand_stars(field_id, string):
     '''
-    turn and '*' into it's expanded form:
+    turn '*''s into their expanded form:
     for example with day of week:
         * -> 0-7
     '''
