@@ -109,6 +109,16 @@
     day of week: [1, 2, 3, 4, 5, 6, 7]
     command: "echo hello"
 
+- description: any number of spaces is allowed between fields
+  cronline: "0   0     1 1     1-7 echo hello"
+  expected:
+    minute: [0]
+    hour: [0]
+    day of month: [1]
+    month: [1]
+    day of week: [1, 2, 3, 4, 5, 6, 7]
+    command: "echo hello"
+
 - description: below min minute
   cronline: "-1 0 1 1 0 echo hello"
   error: true
