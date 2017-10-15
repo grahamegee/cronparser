@@ -92,6 +92,20 @@
     day of week: [1, 5]
     command: "echo hello"
 
+- description: the sneaky janjan != nov case
+  cronline: "0 0 1 janjan 0 echo hello"
+  error: true
+  expected:
+    type: SyntaxError
+    value: "Bad month"
+
+- description: similarly jan1
+  cronline: "0 0 1 jan1 0 echo hello"
+  error: true
+  expected:
+    type: SyntaxError
+    value: "Bad month"
+
 - description: lines starting with '#' are ignored
   cronline: "# 0 0 1 1 0 echo hello"
   error: true

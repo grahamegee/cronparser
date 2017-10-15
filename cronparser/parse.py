@@ -6,7 +6,7 @@ import re
 TIME_DATE_FIELDS_RE = re.compile(
     r' *([^\s]+) +([^\s]+) +([^\s]+) +([^\s]+) +([^\s]+) +(.*)')
 
-PREFIXES_RE = re.compile(r'[A-z]{3}')
+PREFIXES_RE = re.compile(r'\b[A-z]{3}\b')
 
 RANGE_RE = re.compile(r'(\d{1,2})-(\d{1,2})')
 RANGE_WITH_STEP_RE = re.compile(r'(\d{1,2})-(\d{1,2})/(\d{1,2})')
