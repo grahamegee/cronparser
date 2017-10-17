@@ -2,6 +2,7 @@
 Simple script for parsing a single crontab line.
 
 ## Install
+Make sure you are running python >= 3.6
 
 ```bash
 git checkout https://github.com/grahamegee/cronparser.git
