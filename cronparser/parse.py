@@ -117,6 +117,19 @@ def parse(cron_line):
     return full_schedule
 
 
+def format_output(schedule):
+    row_template = '{:<14}{}'
+    schedule_strings = []
+    for key, val in schedule.items():
+        if key == 'command':
+            schedule_strings.append(row_template.format(key, val))
+        else:
+            schedule_strings.append(
+                row_template.format(key, ' '.join(map(str, val))))
+
+    return '\n'.join(schedule_strings)
+
+
 if __name__ == '__main__':
     arg = sys.argv[1]
-    print(parse(arg))
+    print(format_output(parse(arg)))
