@@ -38,6 +38,13 @@
     day of week: [0]
     command: "echo hello"
 
+- description: "Can't step with a prefix"
+  cronline: "1-5/20 0 1 1-6/OCT 0 echo hello"
+  error: true
+  expected:
+    type: SyntaxError
+    value: "Bad month"
+
 - description: overlapping ranges are valid
   cronline: "1-5,2-6 0 1 1 0 echo hello"
   expected:
