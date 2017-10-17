@@ -72,6 +72,20 @@
     type: SyntaxError
     value: "Bad day of week"
 
+- description: Don't ignore extra digits and carry on
+  cronline: "0-599/3 0 1 1 0 echo hello"
+  error: true
+  expected:
+    type: SyntaxError
+    value: "Bad minute"
+
+- description: Don't ignore extra chars and carry on
+  cronline: "0-59/200h 0 1 1 0 echo hello"
+  error: true
+  expected:
+    type: SyntaxError
+    value: "Bad minute"
+
 - description: prefix lists are allowed
   cronline: "0 0 1 1 mon,fri echo hello"
   expected:

@@ -8,9 +8,9 @@ TIME_DATE_FIELDS_RE = re.compile(
 
 PREFIXES_RE = re.compile(r'\b[A-z]{3}\b')
 
-RANGE_RE = re.compile(r'(\d{1,2})-(\d{1,2})')
-RANGE_WITH_STEP_RE = re.compile(r'(\d{1,2})-(\d{1,2})/(\d{1,2})')
-SINGLE_NUMBER_RE = re.compile(r'(\d{1,2})')
+RANGE_RE = re.compile(r'^(\d{1,2})-(\d{1,2})$')
+RANGE_WITH_STEP_RE = re.compile(r'^(\d{1,2})-(\d{1,2})/(\d+)$')
+SINGLE_NUMBER_RE = re.compile(r'^(\d{1,2})$')
 
 ID_TO_NAME = {
     0: 'minute',
