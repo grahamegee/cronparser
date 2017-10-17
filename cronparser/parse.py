@@ -81,7 +81,7 @@ def _create_subschedule(field_id, start, end, step):
 
 def parse(cron_line):
     *time_data_fields, command = re.search(TIME_DATE_FIELDS_RE, cron_line).groups()
-    full_schedule = {'command': command}
+    full_schedule = {}
     
     for field_id, field_string in enumerate(time_data_fields):
         field_string = _expand_stars(field_id, field_string)
@@ -114,6 +114,7 @@ def parse(cron_line):
             raise SyntaxError('Bad {}'.format(ID_TO_NAME[field_id]))
 
         full_schedule[ID_TO_NAME[field_id]] = sorted(list(schedule))
+    full_schedule['command'] = command
     return full_schedule
 
 
